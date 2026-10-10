@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>THE ART OF FORM — High Luxury Interactive 3D Chronograph Experience</title>
+  <meta name="description" content="Cinematic scroll-driven 3D luxury watch experience. Time reimagined through engineering, artistry, and movement." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor" class="custom-cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    <span class="cursor-text">EXPLORE</span>
+  </div>
+
+  <!-- Fullscreen Luxury Loader -->
+  <div id="loader" class="loader-screen">
+    <div class="loader-content">
+      <div class="loader-brand-subtitle">TIME REIMAGINED</div>
+      <h1 class="loader-title">THE ART OF FORM</h1>
+      <div class="loader-progress-wrap">
+        <div class="loader-bar-bg">
+          <div id="loader-bar" class="loader-bar"></div>
+        </div>
+        <div class="loader-counter"><span id="loader-percent">00</span>%</div>
+      </div>
+      <div class="loader-status">INITIALIZING HIGH-PRECISION 3D CHRONOGRAPH SCENE</div>
+    </div>
+  </div>
+
+  <!-- WebGL Canvas Container -->
+  <div id="canvas-container" class="canvas-container">
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+
+  <!-- Fixed Top Header Navigation -->
+  <header class="main-header">
+    <div class="header-left">
+      <div class="header-stage-badge" id="header-stage-badge">01 — REVEAL</div>
+      <a href="#" class="brand-logo" id="brand-logo">
+        <span class="brand-symbol">◈</span>
+        <span class="brand-text">THE ART OF FORM</span>
+      </a>
+    </div>
+
+    <div class="header-center">
+      <nav class="chapter-nav">
+        <button class="nav-chapter-btn active" data-chapter="0">
+          <span class="nav-num">01</span>
+          <span class="nav-label">REVEAL</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="1">
+          <span class="nav-num">02</span>
+          <span class="nav-label">ROTATION</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="2">
+          <span class="nav-num">03</span>
+          <span class="nav-label">DIAL</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="3">
+          <span class="nav-num">04</span>
+          <span class="nav-label">ENGINEERING</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="4">
+          <span class="nav-num">05</span>
+          <span class="nav-label">MOVEMENT</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="5">
+          <span class="nav-num">06</span>
+          <span class="nav-label">MATERIALS</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="6">
+          <span class="nav-num">07</span>
+          <span class="nav-label">PROFILE</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="7">
+          <span class="nav-num">08</span>
+          <span class="nav-label">LEGACY</span>
+        </button>
+        <button class="nav-chapter-btn" data-chapter="8">
+          <span class="nav-num">09</span>
+          <span class="nav-label">COLLECTION</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <button id="sound-toggle" class="sound-toggle-btn" aria-label="Toggle Sound">
+        <span class="sound-icon">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+        </span>
+        <span class="sound-label">SOUND</span>
+      </button>
+
+      <button id="menu-btn" class="menu-btn" aria-label="Menu">
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Right Vertical Chapter Indicators Sidebar (9 Chapters) -->
+  <aside class="right-chapter-sidebar" id="right-chapter-sidebar">
+    <div class="sidebar-item active" data-chapter="0">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">01</span>
+        <span class="sidebar-label">Reveal</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="1">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">02</span>
+        <span class="sidebar-label">Rotation</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="2">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">03</span>
+        <span class="sidebar-label">Dial</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="3">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">04</span>
+        <span class="sidebar-label">Engineering</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="4">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">05</span>
+        <span class="sidebar-label">Movement</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="5">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">06</span>
+        <span class="sidebar-label">Materials</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="6">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">07</span>
+        <span class="sidebar-label">Profile</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="7">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">08</span>
+        <span class="sidebar-label">Legacy</span>
+      </div>
+    </div>
+    <div class="sidebar-item" data-chapter="8">
+      <div class="sidebar-circle-ring">
+        <div class="sidebar-dot"></div>
+      </div>
+      <div class="sidebar-info">
+        <span class="sidebar-num">09</span>
+        <span class="sidebar-label">Collection</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Navigation Menu Overlay -->
+  <div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+      <div class="menu-header-label">EXHIBITION CHAPTERS</div>
+      <ul class="menu-links">
+        <li><a href="#section-01" class="menu-link" data-goto="0"><span class="num">01</span> HERO REVEAL</a></li>
+        <li><a href="#section-02" class="menu-link" data-goto="1"><span class="num">02</span> WATCH ROTATION</a></li>
+        <li><a href="#section-03" class="menu-link" data-goto="2"><span class="num">03</span> DIAL MACRO</a></li>
+        <li><a href="#section-04" class="menu-link" data-goto="3"><span class="num">04</span> CROWN ENGINEERING</a></li>
+        <li><a href="#section-05" class="menu-link" data-goto="4"><span class="num">05</span> MOVEMENT MECHANICS</a></li>
+        <li><a href="#section-06" class="menu-link" data-goto="5"><span class="num">06</span> MATERIALS & FINISHES</a></li>
+        <li><a href="#section-07" class="menu-link" data-goto="6"><span class="num">07</span> SIDE PROFILE</a></li>
+        <li><a href="#section-08" class="menu-link" data-goto="7"><span class="num">08</span> FINAL HERO REVEAL</a></li>
+        <li><a href="#section-09" class="menu-link" data-goto="8"><span class="num">09</span> COLLECTION PREVIEW</a></li>
+      </ul>
+      <div class="menu-footer">
+        <div class="menu-meta">CRAFTED WITH THREE.JS & GSAP</div>
+        <div class="menu-copyright">© 2026 THE ART OF FORM. ALL RIGHTS RESERVED.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scrollable Story Content Overlay (9 Stages) -->
+  <main id="scroll-container" class="scroll-container">
+    
+    <!-- Stage 01 — Hero Reveal -->
+    <section class="story-section section-01" id="section-01">
+      <div class="story-content align-left">
+        <h1 class="hero-title animate-text">
+          <span>THE</span>
+          <span>ART OF</span>
+          <span>FORM</span>
+        </h1>
+        <p class="hero-subtitle animate-text">TIME REIMAGINED</p>
+        <p class="section-description animate-text">
+          A perfect balance of engineering, artistry and timeless design.
+        </p>
+        <div class="cta-wrap animate-text">
+          <button id="explore-cta-btn" class="primary-btn explore-btn" data-scroll-to="section-09">
+            <span>EXPLORE COLLECTION</span>
+            <span class="btn-arrow-circle">→</span>
+          </button>
+        </div>
+        <div class="scroll-indicator animate-text">
+          <span class="scroll-line"></span>
+          <span class="scroll-label">SCROLL</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 02 — Watch Rotation -->
+    <section class="story-section section-02" id="section-02">
+      <div class="story-content align-left">
+        <span class="section-tag animate-text">02 — ROTATION</span>
+        <h2 class="section-title animate-text">
+          <span>A MASTERPIECE</span>
+          <span class="italic-title">IN MOTION</span>
+        </h2>
+        <p class="section-description animate-text">
+          Every angle reveals a new perspective. Precision crafted to inspire from every view.
+        </p>
+        <div class="section-inspect-pills animate-text">
+          <button id="section-btn-360" class="control-pill-btn" aria-label="360 Degree Turntable Mode">
+            <span class="pill-badge">360°</span>
+            <span class="pill-label">INSPECT VIEW</span>
+          </button>
+          <button id="section-btn-reset" class="control-pill-btn" aria-label="Reset Camera View">
+            <span class="pill-label">RESET VIEW</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 03 — Dial Macro -->
+    <section class="story-section section-03" id="section-03">
+      <div class="story-content align-left">
+        <span class="section-tag animate-text">03 — DIAL</span>
+        <h2 class="section-title animate-text">
+          <span>THE DIAL</span>
+        </h2>
+        <p class="section-description animate-text">
+          A study in balance, depth and refinement. Every detail serves a purpose.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stage 04 — Crown Engineering -->
+    <section class="story-section section-04" id="section-04">
+      <div class="story-content align-left">
+        <span class="section-tag animate-text">04 — ENGINEERING</span>
+        <h2 class="section-title animate-text">
+          <span>PRECISION</span>
+          <span class="italic-title">ENGINEERING</span>
+        </h2>
+        <p class="section-description animate-text">
+          A closer look at the intricate details that make time extraordinary. Laser-engraved crown motif, fluted winding grooves, and responsive dual chronograph pushers.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stage 05 — Movement and Craftsmanship -->
+    <section class="story-section section-05" id="section-05">
+      <div class="story-content align-left">
+        <span class="section-tag animate-text">05 — MOVEMENT</span>
+        <h2 class="section-title animate-text">
+          <span>CRAFTED TO LAST</span>
+        </h2>
+        <p class="section-description animate-text">
+          A fusion of traditional watchmaking and modern innovation. Exhibition caseback displaying the 28,800 VPH mechanical heart, gold oscillating rotor, and synthetic ruby bearings.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stage 06 — Materials and Finishes -->
+    <section class="story-section section-06" id="section-06">
+      <div class="story-content align-left">
+        <span class="section-tag animate-text">06 — MATERIALS</span>
+        <h2 class="section-title animate-text">
+          <span>MATERIALS AND</span>
+          <span class="italic-title">FINISHES</span>
+        </h2>
+        <p class="section-description animate-text">
+          Distinctive finishes for every personality. Select a luxury finish to transform the timepiece in real-time.
+        </p>
+        
+        <!-- Interactive Material Finish Switcher Buttons -->
+        <div class="finish-selector-wrap animate-text">
+          <button class="finish-btn active" data-finish="gold">
+            <span class="swatch swatch-gold"></span>
+            <span class="finish-name">Sage</span>
+          </button>
+          <button class="finish-btn" data-finish="black">
+            <span class="swatch swatch-black"></span>
+            <span class="finish-name">Black</span>
+          </button>
+          <button class="finish-btn" data-finish="silver">
+            <span class="swatch swatch-silver"></span>
+            <span class="finish-name">Silver</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 07 — Side Profile -->
+    <section class="story-section section-07" id="section-07">
+      <div class="story-content align-left">
+        <span class="section-tag animate-text">07 — PROFILE</span>
+        <h2 class="section-title animate-text">
+          <span>A PERFECT</span>
+          <span class="italic-title">PROFILE</span>
+        </h2>
+        <p class="section-description animate-text">
+          Sculpted with purpose. Designed for a lifetime. Slimline architectural case silhouette hugging the wrist with subtle ergonomic curvature.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stage 08 — Final Hero Reveal -->
+    <section class="story-section section-08" id="section-08">
+      <div class="story-content align-left">
+        <span class="section-tag animate-text">08 — LEGACY</span>
+        <h2 class="hero-title animate-text">
+          <span>THE ART OF FORM</span>
+          <span class="italic-title">LEGACY COLLECTION</span>
+        </h2>
+        <p class="section-description animate-text">
+          More than a watch. A legacy on your wrist.
+        </p>
+        <div class="cta-wrap animate-text">
+          <button class="primary-btn explore-btn" data-scroll-to="section-09">
+            <span>EXPLORE COLLECTION</span>
+            <span class="btn-arrow-circle">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 09 — Collection Preview Grid -->
+    <section class="story-section section-09" id="section-09">
+      <div class="collection-container align-center width-full">
+        <span class="section-tag animate-text">TIMELESS ELEGANCE</span>
+        <h2 class="collection-main-title animate-text">OUR COLLECTION</h2>
+        
+        <div class="collection-grid animate-text">
+          <!-- Card 1: Heritage Sage -->
+          <div class="collection-card" data-product="gold">
+            <div class="card-image-wrap">
+              <div class="card-badge">SAGE GREEN EDITION</div>
+              <img src="/assets/images/watch_gold.jpg" alt="Heritage Sage Chronograph" class="card-watch-img" />
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Heritage Sage</h3>
+              <div class="card-price">$12,500</div>
+              <button class="card-discover-btn" data-product="gold">DISCOVER</button>
+            </div>
+          </div>
+
+          <!-- Card 2: Midnight Black -->
+          <div class="collection-card" data-product="black">
+            <div class="card-image-wrap">
+              <div class="card-badge">DLC MATTE BLACK</div>
+              <img src="/assets/images/watch_black.jpg" alt="Midnight Black Chronograph" class="card-watch-img" />
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Midnight Black</h3>
+              <div class="card-price">$11,800</div>
+              <button class="card-discover-btn" data-product="black">DISCOVER</button>
+            </div>
+          </div>
+
+          <!-- Card 3: Classic Silver -->
+          <div class="collection-card" data-product="silver">
+            <div class="card-image-wrap">
+              <div class="card-badge">GRADE-5 TITANIUM</div>
+              <img src="/assets/images/watch_silver.jpg" alt="Classic Silver Chronograph" class="card-watch-img" />
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Classic Silver</h3>
+              <div class="card-price">$11,200</div>
+              <button class="card-discover-btn" data-product="silver">DISCOVER</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Fixed 3D Inspection Controls Bar (360° Inspect & Reset View) -->
+  <div class="canvas-controls-bar" id="canvas-controls-bar">
+    <button id="btn-360-inspect" class="control-pill-btn" aria-label="360 Degree Inspection Turntable">
+      <span class="pill-icon">🔄</span>
+      <span class="pill-label">360° INSPECT</span>
+    </button>
+    <button id="btn-reset-view" class="control-pill-btn" aria-label="Reset Camera & Watch View">
+      <span class="pill-icon">🎯</span>
+      <span class="pill-label">RESET VIEW</span>
+    </button>
+  </div>
+
+  <!-- Interactive 3D Hotspot Overlay Container -->
+  <div id="hotspot-container" class="hotspot-container">
+    <!-- Hotspots injected dynamically -->
+  </div>
+
+  <!-- Product Detail & Hotspot Detail Modal Dialog -->
+  <div id="hotspot-modal" class="hotspot-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      <div class="modal-header">
+        <span class="modal-tag" id="modal-tag">PRECISION SPECIFICATION</span>
+        <h3 class="modal-title" id="modal-title">CHRONOGRAPH MOVEMENT</h3>
+      </div>
+      <div class="modal-body">
+        <p id="modal-desc">
+          Crafted with 288 hand-finished components, column-wheel chronograph mechanism, and custom 18k gold skeletonized rotor.
+        </p>
+        <div class="modal-tech-specs" id="modal-specs">
+          <div class="tech-spec-row">
+            <span class="tech-key">Case Diameter</span>
+            <span class="tech-val">42.0 mm / 11.5 mm Profile</span>
+          </div>
+          <div class="tech-spec-row">
+            <span class="tech-key">Calibre</span>
+            <span class="tech-val">In-House Automatic Cal. 8000</span>
+          </div>
+          <div class="tech-spec-row">
+            <span class="tech-key">Power Reserve</span>
+            <span class="tech-val">72 Hours / 28,800 VPH</span>
+          </div>
+          <div class="tech-spec-row">
+            <span class="tech-key">Crystal</span>
+            <span class="tech-val">Double Curved Sapphire Anti-Reflective</span>
+          </div>
+          <div class="tech-spec-row">
+            <span class="tech-key">Strap</span>
+            <span class="tech-val">Full-grain Alligator Leather & Deployment Clasp</span>
+          </div>
+        </div>
+        <div class="modal-actions" style="margin-top: 1.8rem; text-align: center;">
+          <button class="primary-btn inquiry-btn" id="inquiry-btn">
+            <span>REQUEST PRIVATE INQUIRY</span>
+            <span class="btn-arrow-circle">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Bottom Status Bar & Scroll Progress Indicator -->
+  <footer class="main-footer">
+    <div class="footer-left">
+      <span class="chapter-indicator"><span id="curr-chapter">01</span> / 09</span>
+      <span class="chapter-name" id="curr-chapter-name">REVEAL</span>
+    </div>
+    
+    <div class="footer-center">
+      <div class="scroll-progress-track">
+        <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <span class="device-tag">WEBGL 2.0 / PHYSICAL CHRONOGRAPH</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
